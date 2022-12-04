@@ -62,4 +62,27 @@ public class Wandering : MonoBehaviour
         _isWalking = false;
         _isWandering = false;
     }
+
+    private void Patroling()
+    {
+
+        if (!walkPointSet) SearchWalkPoint();
+
+        if (walkPointSet)
+            agent.SetDestination(walkPoint);
+        Vector3 distanceToWalkPoint = transform.position - walkPoint;
+
+        if (distanceToWalkPoint.magnitude < 1)
+            walkPointSet = false;
+    }
+
+    private void SearchWalkPoint()
+    {
+        float randomX = Random.Range(-walkPointRange, walkPointRange);
+        float randomZ = Random.Range(-walkPointRange, walkPointRange);
+
+        walkPoint = new Vector3(transform.position.x + randomX, transform.position.y, transform.position.z + randomZ);
+        if (Physics.Raycast(walkPoint, -transform.up, 2f, groundLayer))
+            walkPointSet = true;
+    }
 }
