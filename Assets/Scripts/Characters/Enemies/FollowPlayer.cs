@@ -16,13 +16,9 @@ public class FollowPlayer : MonoBehaviour
 
     private Vector3 _startPos;
     private bool _isAtacking;
-    
-    private Rigidbody rb;
 
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
         _isAtacking = false;
         _startPos = transform.position;
     }

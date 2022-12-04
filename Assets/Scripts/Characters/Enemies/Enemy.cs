@@ -5,9 +5,12 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
 
-    void Start()
+    private Rigidbody rb;
+
+    private void Start()
     {
-       
+        rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
     }
 
     void Update()

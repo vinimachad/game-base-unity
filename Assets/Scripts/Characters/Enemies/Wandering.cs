@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Wandering : MonoBehaviour
 {
-    // Start is called before the first frame update
     private int _randomHorizontalRotation;
     private bool _isWandering;
     private bool _isWalking;
     private bool _isFollowing;
+    [SerializeField] private Transform looking;
     [SerializeField] private float _rotationSpeed;
     [SerializeField] private float _speed;
 
@@ -19,7 +19,6 @@ public class Wandering : MonoBehaviour
         _isFollowing = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (!_isWandering && !_isFollowing)
@@ -29,8 +28,19 @@ public class Wandering : MonoBehaviour
 
         if (_isWalking)
         {
-            var targetRotation = Quaternion.AngleAxis(_randomHorizontalRotation, Vector3.up);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            RaycastHit hit;
+            if (Physics.Raycast(looking.position, looking.forward, out hit, 1f))
+            {
+                var angle = Quaternion.Angle(looking.rotation, hit.collider.gameObject.transform.rotation);
+                Debug.Log(angle);
+                var targetRotation = Quaternion.AngleAxis(angle, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            } else
+            {
+                var targetRotation = Quaternion.AngleAxis(_randomHorizontalRotation, Vector3.up);
+                transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, _rotationSpeed * Time.deltaTime);
+            }
+
             transform.position += transform.forward * _speed * Time.deltaTime;
         }
     }

@@ -61,10 +61,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        //grounded = Physics.Raycast(transform.position, Vector3.down, .5f, whatIsGround);
-
         MyInput();
-        SpeedControl();   
+        SpeedControl();  
+        GroundCheck();
     }
 
     private void MyInput()
@@ -112,7 +111,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void Jump()
     {
-        animator.SetBool(isJumpingParam, true);
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
     }
@@ -123,16 +121,19 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool(isJumpingParam, false);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void GroundCheck()
     {
-        grounded = collision.gameObject.CompareTag("Ground");
+        grounded = Physics.Raycast(transform.position, Vector3.down, .1f, whatIsGround);
+        Debug.DrawRay(transform.position, Vector3.down * .1f, Color.red);
 
         if (grounded)
         {
             rb.drag = groundDrag;
             ResetJump();
-        } else
+        }
+        else
         {
+            animator.SetBool(isJumpingParam, true);
             rb.drag = 0;
         }
     }
