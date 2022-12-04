@@ -9,8 +9,8 @@ public class Atack : MonoBehaviour
         
     }
 
-    void Update()
+    public void Atacking()
     {
-        
+        Debug.Log("Atacking");
     }
 }

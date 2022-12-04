@@ -10,11 +10,12 @@ GameObject:
   m_Component:
   - component: {fileID: 7037196354512517710}
   - component: {fileID: 7037196354512517711}
-  - component: {fileID: 7037196354512517707}
-  - component: {fileID: 7037196354512517709}
-  - component: {fileID: 7037196354512517705}
   - component: {fileID: 7037196354512517706}
   - component: {fileID: 5798256058072175744}
+  - component: {fileID: 7037196354512517705}
+  - component: {fileID: 7037196354512517707}
+  - component: {fileID: 7037196354512517709}
+  - component: {fileID: 4504898026219959954}
   m_Layer: 0
   m_Name: PFB_TurtleEnemy
   m_TagString: Untagged
@@ -53,77 +54,6 @@ CapsuleCollider:
   m_Height: 1.012146
   m_Direction: 1
   m_Center: {x: 0.006072998, y: 0.40696526, z: 0}
---- !u!114 &7037196354512517707
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7037196354512517708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69b85871296c01749849b84f46af3580, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  looking: {fileID: 7037196355600303959}
-  _rotationSpeed: 3
-  _speed: 3
---- !u!114 &7037196354512517709
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7037196354512517708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b70968fe2f3e014897f405817dd5e4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  maxDistance: 10
-  atackDistance: 1
-  speed: 3
-  sightRange: 10
-  atackRange: 2
-  walkPointRange: 10
-  agent: {fileID: 5798256058072175744}
-  playerLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  onAtacking:
-    m_PersistentCalls:
-      m_Calls: []
-  onFollowing:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7037196354512517707}
-        m_TargetAssemblyTypeName: Wandering, Assembly-CSharp
-        m_MethodName: OnFollowing
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &7037196354512517705
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7037196354512517708}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ab41a7e6e542bb4997c2213f877644a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!54 &7037196354512517706
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -162,6 +92,67 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7037196354512517705
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037196354512517708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3ab41a7e6e542bb4997c2213f877644a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  patrolingRange: 10
+  atackRange: 2
+--- !u!114 &7037196354512517707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037196354512517708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69b85871296c01749849b84f46af3580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  walkPointRange: 10
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 8
+  agent: {fileID: 5798256058072175744}
+--- !u!114 &7037196354512517709
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037196354512517708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b70968fe2f3e014897f405817dd5e4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  speed: 3
+  agent: {fileID: 5798256058072175744}
+--- !u!114 &4504898026219959954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7037196354512517708}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8854b9b3bfaf84543a9aba9536f2b4f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7037196355600303958
 GameObject:
   m_ObjectHideFlags: 0
