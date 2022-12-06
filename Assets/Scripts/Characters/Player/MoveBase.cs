@@ -3,39 +3,33 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMovement : MonoBehaviour
+abstract public class MoveBase : MonoBehaviour
 {
     [Header("Movement")]
-    public float sprintSpeed;
-    public float movSpeed;
-    public float groundDrag;
+    [SerializeField] private float sprintSpeed = 12f;
+    [SerializeField] private float movSpeed = 5f;
+    [SerializeField] private float groundDrag = 5f;
 
-    public float jumpForce;
-    public float jumpCooldown;
-    public float airMultiplier;
-    bool readyToJump = true;
+    [SerializeField] private float jumpForce = 20f;
+    [SerializeField] private float airMultiplier = .4f;
+    [SerializeField] private bool readyToJump = true;
 
-    float horizontalInput;
-    float verticalInput;
+    public Vector2 movInput;
 
-    Vector3 moveDirection;
-
-    Rigidbody rb;
-
-    [Header("Input")]
-    [SerializeField] private PlayerInput playerInput;
+    [SerializeField] private Rigidbody rb;
+    private Vector3 moveDirection;
 
     [Header("Keybinds")]
 
-    public KeyCode jumpKey = KeyCode.Space;
-    public KeyCode sprintKey = KeyCode.LeftShift;
+    [SerializeField] private KeyCode jumpKey = KeyCode.Space;
+    [SerializeField] private KeyCode sprintKey = KeyCode.LeftShift;
 
     [Header("Ground Check")]
-    public LayerMask whatIsGround;
-    bool grounded;
+    [SerializeField] private LayerMask whatIsGround;
+    [SerializeField] private bool grounded;
 
-    public Transform orientation;
-    public Animator animator;
+    [SerializeField] private Transform orientation;
+    [SerializeField] private Animator animator;
 
     [Header("Animation")]
     private string isSprintingParam = "IsSprinting";
@@ -43,13 +37,13 @@ public class PlayerMovement : MonoBehaviour
     private string isJumpingParam = "IsJumping";
 
 
-    void Start()
+    public virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
-    private void FixedUpdate()
+    public virtual void FixedUpdate()
     {
         MovePlayer(movSpeed);
 
@@ -57,23 +51,22 @@ public class PlayerMovement : MonoBehaviour
         {
             SprintPlayer();
             animator.SetBool(isSprintingParam, true);
-        } else
+        }
+        else
         {
             animator.SetBool(isSprintingParam, false);
         }
     }
 
-    void Update()
+    public virtual void Update()
     {
         MyInput();
-        SpeedControl();  
+        SpeedControl();
         GroundCheck();
     }
 
-    private void MyInput()
+    public virtual void MyInput()
     {
-        horizontalInput = Input.GetAxisRaw("Horizontal");
-        verticalInput = Input.GetAxisRaw("Vertical");
         if (Input.GetKeyDown(jumpKey) && readyToJump && grounded)
         {
             readyToJump = false;
@@ -83,7 +76,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer(float velocity)
     {
-        moveDirection = orientation.forward * verticalInput + orientation.right * horizontalInput;
+        moveDirection = orientation.forward * movInput.y + orientation.right * movInput.x;
 
         if (grounded)
         {
