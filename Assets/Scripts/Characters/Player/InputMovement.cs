@@ -12,13 +12,6 @@ public class InputMovement : MoveBase
     public override void Update()
     {
         movInput = playerInput.actions["Move"].ReadValue<Vector2>();
-        if (movInput.y > 0)
-        {
-            movInput = new Vector2(0, 1);
-        } else if (movInput.y < 0)
-        {
-            movInput = new Vector2(0, -1);
-        }
         base.Update();
     }
 }

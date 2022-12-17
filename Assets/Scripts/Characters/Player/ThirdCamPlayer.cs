@@ -31,7 +31,6 @@ public class ThirdCamPlayer : MonoBehaviour
 
     private void Update()
     {
-
         if (currentCam == CameraStyle.BASIC)
         {
             ChangeViewDirOfPlayer();
@@ -43,7 +42,6 @@ public class ThirdCamPlayer : MonoBehaviour
 
     private void CombatCam()
     {
-        Debug.Log(touchPanel.VectorOutput());
         cinemachine.m_XAxis.Value = touchPanel.VectorOutput().x * Time.deltaTime * 130f;
         Vector3 dirToCombatLookAt = combatLook.position - new Vector3(transform.position.x, combatLook.position.y, transform.position.z);
         orientation.forward = dirToCombatLookAt.normalized;
